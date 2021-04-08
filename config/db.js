@@ -1,22 +1,8 @@
-const mysql = require("mysql")
-const util = require("util")
+var admin = require('firebase-admin');
 
-//Connection configuration
-const db = mysql.createConnection({
-  host: "127.0.0.1",
-  user: "root",
-  password: "",
-  database: "",
-  charset: "utf8mb4",
-  dateStrings: true
-})
+admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
+  databaseURL: 'https://pink-5ac5a-default-rtdb.firebaseio.com/'
+});
 
-//Test the connection
-db.connect((err) => {
-  if (err) throw err
-})
-
-//To promises
-db.query = util.promisify(db.query)
-
-module.exports = db
+module.exports = admin

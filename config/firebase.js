@@ -1,4 +1,4 @@
-const admin = require("./firebase-config")
+const db = require("./db")
 
 
 const getAuthToken = (req, res, next) => {
@@ -18,9 +18,7 @@ const checkIfAuthenticated = (req, res, next) => {
  getAuthToken(req, res, async () => {
     try {
       const { authToken } = req;
-      const userInfo = await admin
-        .auth()
-        .verifyIdToken(authToken);
+      const userInfo = await db.auth().verifyIdToken(authToken);
       req.userInfo = userInfo;
       return next();
     } catch (e) {

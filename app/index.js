@@ -11,6 +11,7 @@ require("express-async-errors")
 
 //Routes
 require("./route")
+require("./posts")
 
 //Custom Handler
 app.use((err, req, res, next) => {
