@@ -14,7 +14,7 @@ npm start
 
 # Requirements
 
-This project uses ES2017 features
+This project uses ES2017 and firebase features
 
 * Requires Node.js 8.0.0 and later
-* Update please
+* Update the file `db.js` for the firebase connection
