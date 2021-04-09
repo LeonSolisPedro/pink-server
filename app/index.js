@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }))
 require("express-async-errors")
 
 //Routes
-require("./route")
+require("./hello")
 require("./posts")
 
 //Custom Handler
