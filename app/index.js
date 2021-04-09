@@ -6,6 +6,11 @@ const app = module.exports = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+//Cors stuff
+const cors = require('cors')
+app.use(cors());
+app.options('*', cors())
+
 //express-async-errors stuff
 require("express-async-errors")
 
