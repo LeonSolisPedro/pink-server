@@ -1,15 +1,18 @@
-const app = require("../index")
-const checkIfAuthenticated = require("../../config/firebase")
-const admin = require("firebase-admin")
+import express from "express"
+import checkIfAuthenticated from "../../config/firebase.js"
+import admin from "../../config/db.js"
+const router = express.Router()
 
 
-app.get("/api/posts", checkIfAuthenticated, async (req, res) => {
+router.get("/api/posts", checkIfAuthenticated, async (req, res) => {
   
-  const db = admin.database();
-  const ref = db.ref("posts");
+  const db = admin.database()
+  const ref = db.ref("posts")
 
   const posts = await ref.once("value")
 
   res.send(posts.val())
 
 })
+
+export { router }

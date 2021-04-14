@@ -1,8 +1,8 @@
-var admin = require('firebase-admin');
+import db from "firebase-admin"
 
-admin.initializeApp({
-  credential: admin.credential.applicationDefault(),
+db.initializeApp({
+  credential: db.credential.applicationDefault(),
   databaseURL: 'https://pink-5ac5a-default-rtdb.firebaseio.com/'
-});
+})
 
-module.exports = admin
+export default db

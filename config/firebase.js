@@ -1,4 +1,4 @@
-const db = require("./db")
+import db from "./db.js"
 
 
 const getAuthToken = (req, res, next) => {
@@ -6,27 +6,27 @@ const getAuthToken = (req, res, next) => {
     req.headers.authorization &&
     req.headers.authorization.split(' ')[0] === 'Bearer'
   ) {
-    req.authToken = req.headers.authorization.split(' ')[1];
+    req.authToken = req.headers.authorization.split(' ')[1]
   } else {
-    req.authToken = null;
+    req.authToken = null
   }
-  next();
-};
+  next()
+}
 
  
 const checkIfAuthenticated = (req, res, next) => {
  getAuthToken(req, res, async () => {
     try {
-      const { authToken } = req;
-      const userInfo = await db.auth().verifyIdToken(authToken);
-      req.userInfo = userInfo;
-      return next();
+      const { authToken } = req
+      const userInfo = await db.auth().verifyIdToken(authToken)
+      req.userInfo = userInfo
+      return next()
     } catch (e) {
       return res
         .status(401)
-        .send({ error: 'You are not authorized to make this request' });
+        .send({ error: 'You are not authorized to make this request' })
     }
-  });
-};
+  })
+}
 
-module.exports = checkIfAuthenticated
+export default checkIfAuthenticated

@@ -1,3 +1,1 @@
-module.exports = {
-  route: require("./posts")
-}
+export { router as routerPosts } from "./posts.js"

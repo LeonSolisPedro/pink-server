@@ -1,25 +1,30 @@
 //express stuff
-const express = require("express")
-const app = module.exports = express()
+import express from "express"
+const app = express()
 
 //bodyParser stuff
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 //Cors stuff
-const cors = require('cors')
-app.use(cors());
+import cors from "cors"
+app.use(cors())
 app.options('*', cors())
 
 //express-async-errors stuff
-require("express-async-errors")
+import "express-async-errors"
 
 //Routes
-require("./hello")
-require("./posts")
+import { route } from "./route/index.js"
+app.use("/", route)
+
+import { routerPosts } from "./posts/index.js"
+app.use("/", routerPosts)
 
 //Custom Handler
 app.use((err, req, res, next) => {
   console.error(err)
   res.sendStatus(500)
 })
+
+export default app
