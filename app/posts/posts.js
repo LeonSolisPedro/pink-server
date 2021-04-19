@@ -7,9 +7,9 @@ const router = express.Router()
 router.get("/api/posts", checkIfAuthenticated, async (req, res) => {
   
   const db = admin.database()
-  const ref = db.ref("posts")
+  const dbPosts = db.ref("posts")
 
-  const posts = await ref.once("value")
+  const posts = await dbPosts.once("value")
 
   res.send(posts.val())
 
