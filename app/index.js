@@ -15,8 +15,11 @@ app.options('*', cors())
 import "express-async-errors"
 
 //Routes
-import { route } from "./route/index.js"
-app.use("/", route)
+import { routerExample } from "./example/index.js"
+app.use("/", routerExample)
+
+import { routerAuth } from "./auth/index.js"
+app.use("/", routerAuth)
 
 import { routerPosts } from "./posts/index.js"
 app.use("/", routerPosts)

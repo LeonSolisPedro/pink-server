@@ -4,7 +4,7 @@ import { example } from "./validations.js"
 const router = express.Router()
 
 
-router.post("/api/route/:idUser", validate(example), async (req, res) => {
+router.post("/api/example/:idUser", validate(example), async (req, res) => {
 
   let { name, description } = req.body
 
