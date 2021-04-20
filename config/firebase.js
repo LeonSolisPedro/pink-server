@@ -1,7 +1,7 @@
 import db from "./db.js"
 
 
-const getAuthToken = (req, res, next) => {
+function getAuthToken(req) {
   if (
     req.headers.authorization &&
     req.headers.authorization.split(' ')[0] === 'Bearer'
@@ -10,23 +10,33 @@ const getAuthToken = (req, res, next) => {
   } else {
     req.authToken = null
   }
-  next()
 }
 
- 
-const checkIfAuthenticated = (req, res, next) => {
- getAuthToken(req, res, async () => {
-    try {
-      const { authToken } = req
-      const userInfo = await db.auth().verifyIdToken(authToken)
-      req.userInfo = userInfo
-      return next()
-    } catch (e) {
+function hasRole(role) {
+  return function (req, res, next) {
+    if (req.userInfo.role !== role){
       return res
-        .status(401)
-        .send({ error: 'You are not authorized to make this request' })
+      .status(401)
+      .send({ error: 'You are not authorized to make this request' })
     }
-  })
+    else next()
+  }
 }
+
+async function checkIfAuthenticated(req, res, next) {
+  try {
+    getAuthToken(req)
+    const { authToken } = req
+    const userInfo = await db.auth().verifyIdToken(authToken)
+    req.userInfo = userInfo
+    return next()
+  } catch (e) {
+    return res
+      .status(401)
+      .send({ error: 'You are not authorized to make this request' })
+  }
+}
+
+export { hasRole }
 
 export default checkIfAuthenticated

@@ -24,6 +24,9 @@ app.use("/", routerAuth)
 import { routerPosts } from "./posts/index.js"
 app.use("/", routerPosts)
 
+import { crudUsers } from "./crudusers/index.js"
+app.use("/", crudUsers)
+
 //Custom Handler
 app.use((err, req, res, next) => {
   console.error(err)

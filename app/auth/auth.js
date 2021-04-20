@@ -33,11 +33,10 @@ router.post("/api/register", validate(register), async (req, res) => {
       email: email,
       password: password
     })
+    return res.sendStatus(200)
   } catch (error) {
     return res.sendStatus(422)
   }
-
-  res.sendStatus(200)
 })
 
 export { router }
